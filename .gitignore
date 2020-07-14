@@ -1,4 +1,7 @@
 HELP.md
+node_modules
+webpack.generated.js
+target
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
