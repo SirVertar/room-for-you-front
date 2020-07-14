@@ -26,7 +26,7 @@ public class RoomForYouApartmentApiClient {
     public List<ApartmentDto> getApartmentsResponse() {
         StringBuilder url = new StringBuilder();
         url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment());
-        return apartmentMapper.mapToApartmentsDto(getApartmentResponseList(url.toString()));
+        return apartmentMapper.mapToApartmentDtos(getApartmentResponseList(url.toString()));
     }
 
     public ApartmentDto postForApartment(ApartmentDto apartmentDto) {
@@ -48,6 +48,7 @@ public class RoomForYouApartmentApiClient {
         }
         return new ArrayList<>();
     }
+
 
 
 }

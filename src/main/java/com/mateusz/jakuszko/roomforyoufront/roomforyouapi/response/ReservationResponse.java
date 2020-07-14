@@ -3,6 +3,9 @@ package com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
+
+import java.time.LocalDate;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -12,15 +15,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "apartmentId",
         "userId"
 })
+@Getter
 public class ReservationResponse {
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("startDate")
-    public String startDate;
+    public LocalDate startDate;
     @JsonProperty("endDate")
-    public String endDate;
+    public LocalDate endDate;
     @JsonProperty("apartmentId")
-    public Integer apartmentId;
+    public Long apartmentId;
     @JsonProperty("userId")
-    public Integer userId;
+    public Long userId;
 }

@@ -3,6 +3,7 @@ package com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
 
 import java.util.List;
 
@@ -18,9 +19,10 @@ import java.util.List;
         "reservations",
         "apartmentDtos"
 })
+@Getter
 public class CustomerResponse {
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("username")
     public String username;
     @JsonProperty("password")
@@ -36,5 +38,5 @@ public class CustomerResponse {
     @JsonProperty("reservations")
     public List<ReservationResponse> reservations = null;
     @JsonProperty("apartmentDtos")
-    public List<ApartmentResponse> apartmentDtos = null;
+    public List<ApartmentResponse> apartments = null;
 }

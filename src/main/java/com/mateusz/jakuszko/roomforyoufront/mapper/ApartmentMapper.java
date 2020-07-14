@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class ApartmentMapper {
-    public List<ApartmentDto> mapToApartmentsDto(List<ApartmentResponse> apartments) {
+    public List<ApartmentDto> mapToApartmentDtos(List<ApartmentResponse> apartments) {
+        log.info("Map ApartmentResponses to ApartmentDtos");
         return apartments.stream()
                 .map(apartmentResponse -> ApartmentDto.builder()
                         .id(apartmentResponse.getId())
@@ -28,6 +29,7 @@ public class ApartmentMapper {
     }
 
     public ApartmentDto mapToApartmentDto(ApartmentResponse apartment) {
+        log.info("Map ApartmentResponse to ApartmentDto");
         return ApartmentDto.builder()
                 .id(apartment.getId())
                 .latitude(apartment.getLatitude())
@@ -41,6 +43,7 @@ public class ApartmentMapper {
     }
 
     public String mapToJsonObject(ApartmentDto apartment) {
+        log.info("Map ApartmentDto to JsonObject");
         Gson gson = new Gson();
         return gson.toJson(apartment);
     }
