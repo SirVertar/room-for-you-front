@@ -2,8 +2,10 @@ package com.mateusz.jakuszko.roomforyoufront;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@EnableConfigurationProperties
 public class RoomForYouFrontApplication {
 
     public static void main(String[] args) {

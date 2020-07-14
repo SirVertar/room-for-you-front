@@ -21,6 +21,18 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+    implementation 'junit:junit:4.12'
+    implementation enforcedPlatform('com.vaadin:vaadin-bom:14.2.3')
+
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+
+    compile('com.google.code.gson:gson:2.8.2')
+
 }
 
 dependencyManagement {
