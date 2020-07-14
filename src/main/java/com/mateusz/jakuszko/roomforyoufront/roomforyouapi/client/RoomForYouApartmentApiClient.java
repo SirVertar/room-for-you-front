@@ -33,9 +33,9 @@ public class RoomForYouApartmentApiClient {
         StringBuilder url = new StringBuilder();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        String jsonApartment = apartmentMapper.mapToJsonObject(apartmentDto);
-        apartmentDto = ApartmentDto.builder()
-                .city("Poznań").build();
+        //String jsonApartment = apartmentMapper.mapToJsonObject(apartmentDto);
+//        apartmentDto = ApartmentDto.builder()
+//                .city("Poznań").customerId(1L).build();
         HttpEntity<ApartmentDto> request = new HttpEntity<ApartmentDto>(apartmentDto, headers);
         url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment());
         return apartmentMapper.mapToApartmentDto(restTemplate.postForObject(url.toString(), apartmentDto, ApartmentResponse.class));
