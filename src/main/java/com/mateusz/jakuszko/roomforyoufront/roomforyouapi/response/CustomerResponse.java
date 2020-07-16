@@ -36,7 +36,7 @@ public class CustomerResponse {
     @JsonProperty("role")
     public String role;
     @JsonProperty("reservations")
-    public List<ReservationResponse> reservations = null;
-    @JsonProperty("apartmentDtos")
-    public List<ApartmentResponse> apartments = null;
+    public List<ReservationResponse> reservations;
+    @JsonProperty("apartments")
+    public List<ApartmentResponse> apartments;
 }

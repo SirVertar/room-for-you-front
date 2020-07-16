@@ -30,6 +30,7 @@ public class CustomerMapperFacade {
                 .map(response -> CustomerDto.builder()
                         .id(response.getId())
                         .name(response.getName())
+                        .username(response.getUsername())
                         .surname(response.getSurname())
                         .email(response.getEmail())
                         .password(response.getPassword())

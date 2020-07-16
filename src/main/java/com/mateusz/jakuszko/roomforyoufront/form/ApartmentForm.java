@@ -59,14 +59,14 @@ public class ApartmentForm extends FormLayout {
         }
         roomForYouApiClient.postForApartment(apartmentDto);
         setApartmentDto(new ApartmentDto());
-        mainView.refresh();
+        mainView.refreshApartments();
         clear();
     }
 
     private void delete() {
         Long apartmentId = LongToStringEncoder.decode(apartmentIdField.getValue());
         roomForYouApiClient.deleteApartment(apartmentId);
-        mainView.refresh();
+        mainView.refreshApartments();
     }
 
     public void clear() {

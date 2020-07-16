@@ -1,9 +1,12 @@
 package com.mateusz.jakuszko.roomforyoufront.view;
 
 import com.mateusz.jakuszko.roomforyoufront.dto.ApartmentDto;
+import com.mateusz.jakuszko.roomforyoufront.dto.CustomerDto;
 import com.mateusz.jakuszko.roomforyoufront.encoder.LongToStringEncoder;
 import com.mateusz.jakuszko.roomforyoufront.form.ApartmentForm;
+import com.mateusz.jakuszko.roomforyoufront.form.CustomerForm;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouApartmentApiClient;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouCustomerClient;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -21,17 +24,22 @@ public class MainView extends VerticalLayout {
     private Button buttonApartment = new Button("Apartment");
     private Button buttonReservation = new Button("Reservation");
     private Button buttonCustomer = new Button("Customer");
-    private final RoomForYouApartmentApiClient roomForYouApiClient;
+    private final RoomForYouApartmentApiClient roomForYouApartmentApiClient;
+    private final RoomForYouCustomerClient roomForYouCustomerClient;
     private Grid apartmentGrid = new Grid<>(ApartmentDto.class);
+    private Grid customerGrid = new Grid<>(CustomerDto.class);
     private LongToStringEncoder longToStringEncoder;
 
-    public MainView(@Autowired RoomForYouApartmentApiClient roomForYouApiClient,
+    public MainView(@Autowired RoomForYouApartmentApiClient roomForYouApartmentApiClient,
+                    @Autowired RoomForYouCustomerClient roomForYouCustomerClient,
                     @Autowired LongToStringEncoder longToStringEncoder) {
         this.longToStringEncoder = longToStringEncoder;
-        this.roomForYouApiClient = roomForYouApiClient;
+        this.roomForYouApartmentApiClient = roomForYouApartmentApiClient;
+        this.roomForYouCustomerClient = roomForYouCustomerClient;
         addButtonsContent();
         buttonApartment.addClickListener(event -> apartmentView());
         buttonReservation.addClickListener(event -> reservationView());
+        buttonCustomer.addClickListener(event -> customersView());
     }
 
     public void addButtonsContent() {
@@ -44,18 +52,22 @@ public class MainView extends VerticalLayout {
     public void apartmentView() {
         removeAll();
         addButtonsContent();
-        ApartmentForm apartmentForm = new ApartmentForm(this, roomForYouApiClient, longToStringEncoder);
+        ApartmentForm apartmentForm = new ApartmentForm(this, roomForYouApartmentApiClient, longToStringEncoder);
         apartmentGrid.setColumns("city", "street", "streetNumber", "apartmentNumber", "id", "customerId");
-        HorizontalLayout mainContent = new HorizontalLayout(apartmentGrid, apartmentForm);
-        mainContent.setSizeFull();
+        HorizontalLayout apartmentContent = new HorizontalLayout(apartmentGrid, apartmentForm);
+        apartmentContent.setSizeFull();
         apartmentGrid.setSizeFull();
-        add(apartmentGrid, mainContent);
+        add(apartmentGrid, apartmentContent);
         setSizeFull();
-        refresh();
+        refreshApartments();
     }
 
-    public void refresh() {
-        apartmentGrid.setItems((roomForYouApiClient.getApartmentsResponse()));
+    public void refreshApartments() {
+        apartmentGrid.setItems((roomForYouApartmentApiClient.getApartmentsResponse()));
+    }
+
+    public void refreshCustomers() {
+        customerGrid.setItems((roomForYouCustomerClient.getCustomersResponse()));
     }
 
     public void reservationView() {
@@ -66,5 +78,13 @@ public class MainView extends VerticalLayout {
     public void customersView() {
         removeAll();
         addButtonsContent();
+        CustomerForm customerForm = new CustomerForm(this, roomForYouCustomerClient, longToStringEncoder);
+        customerGrid.setColumns("id", "username", "name", "surname", "email", "role");
+        HorizontalLayout customerContent = new HorizontalLayout(customerGrid, customerForm);
+        customerContent.setSizeFull();
+        customerGrid.setSizeFull();
+        add(customerGrid, customerContent);
+        setSizeFull();
+        refreshCustomers();
     }
 }

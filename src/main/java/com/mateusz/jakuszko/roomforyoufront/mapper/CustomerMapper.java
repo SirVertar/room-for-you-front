@@ -12,11 +12,13 @@ import java.util.List;
 @Slf4j
 @Component
 public class CustomerMapper {
+
     public CustomerDto mapToCustomerDto(CustomerResponse customerResponse, List<ApartmentDto> apartments,
                                         List<ReservationDto> reservations){
         log.info("Map CustomerResponse to CustomerDto");
         return CustomerDto.builder()
                 .id(customerResponse.getId())
+                .username(customerResponse.getUsername())
                 .name(customerResponse.getName())
                 .surname(customerResponse.getSurname())
                 .email(customerResponse.getEmail())

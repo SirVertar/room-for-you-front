@@ -6,9 +6,6 @@ import com.mateusz.jakuszko.roomforyoufront.mapper.ApartmentMapper;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.config.RoomForYouApiConfig;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ApartmentResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,6 +32,13 @@ public class RoomForYouApartmentApiClient {
         return apartmentMapper.mapToApartmentDto(restTemplate.postForObject(url.toString(), apartmentDto, ApartmentResponse.class));
     }
 
+    public void deleteApartment(Long id) {
+        StringBuilder url = new StringBuilder();
+        url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment())
+                .append(id);
+        restTemplate.delete(url.toString());
+    }
+
     public List<ApartmentResponse> getApartmentResponseList(String url) {
         ApartmentResponse[] apartments = restTemplate.getForObject(url, ApartmentResponse[].class);
         if (apartments != null) {
@@ -42,14 +46,4 @@ public class RoomForYouApartmentApiClient {
         }
         return new ArrayList<>();
     }
-
-    public void deleteApartment(Long id) {
-        StringBuilder url = new StringBuilder();
-        url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment())
-        .append(id);
-        restTemplate.delete(url.toString());
-    }
-
-
-
 }
