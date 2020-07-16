@@ -6,7 +6,7 @@ import com.mateusz.jakuszko.roomforyoufront.encoder.LongToStringEncoder;
 import com.mateusz.jakuszko.roomforyoufront.form.ApartmentForm;
 import com.mateusz.jakuszko.roomforyoufront.form.CustomerForm;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouApartmentApiClient;
-import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouCustomerClient;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouCustomerApiClient;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -25,17 +25,17 @@ public class MainView extends VerticalLayout {
     private Button buttonReservation = new Button("Reservation");
     private Button buttonCustomer = new Button("Customer");
     private final RoomForYouApartmentApiClient roomForYouApartmentApiClient;
-    private final RoomForYouCustomerClient roomForYouCustomerClient;
+    private final RoomForYouCustomerApiClient roomForYouCustomerApiClient;
     private Grid apartmentGrid = new Grid<>(ApartmentDto.class);
     private Grid customerGrid = new Grid<>(CustomerDto.class);
     private LongToStringEncoder longToStringEncoder;
 
     public MainView(@Autowired RoomForYouApartmentApiClient roomForYouApartmentApiClient,
-                    @Autowired RoomForYouCustomerClient roomForYouCustomerClient,
+                    @Autowired RoomForYouCustomerApiClient roomForYouCustomerApiClient,
                     @Autowired LongToStringEncoder longToStringEncoder) {
         this.longToStringEncoder = longToStringEncoder;
         this.roomForYouApartmentApiClient = roomForYouApartmentApiClient;
-        this.roomForYouCustomerClient = roomForYouCustomerClient;
+        this.roomForYouCustomerApiClient = roomForYouCustomerApiClient;
         addButtonsContent();
         buttonApartment.addClickListener(event -> apartmentView());
         buttonReservation.addClickListener(event -> reservationView());
@@ -67,7 +67,7 @@ public class MainView extends VerticalLayout {
     }
 
     public void refreshCustomers() {
-        customerGrid.setItems((roomForYouCustomerClient.getCustomersResponse()));
+        customerGrid.setItems((roomForYouCustomerApiClient.getCustomersResponse()));
     }
 
     public void reservationView() {
@@ -78,7 +78,7 @@ public class MainView extends VerticalLayout {
     public void customersView() {
         removeAll();
         addButtonsContent();
-        CustomerForm customerForm = new CustomerForm(this, roomForYouCustomerClient, longToStringEncoder);
+        CustomerForm customerForm = new CustomerForm(this, roomForYouCustomerApiClient, longToStringEncoder);
         customerGrid.setColumns("id", "username", "name", "surname", "email", "role");
         HorizontalLayout customerContent = new HorizontalLayout(customerGrid, customerForm);
         customerContent.setSizeFull();

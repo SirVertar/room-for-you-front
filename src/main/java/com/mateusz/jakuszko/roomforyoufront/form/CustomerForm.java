@@ -2,7 +2,7 @@ package com.mateusz.jakuszko.roomforyoufront.form;
 
 import com.mateusz.jakuszko.roomforyoufront.dto.CustomerDto;
 import com.mateusz.jakuszko.roomforyoufront.encoder.LongToStringEncoder;
-import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouCustomerClient;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouCustomerApiClient;
 import com.mateusz.jakuszko.roomforyoufront.view.MainView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -27,14 +27,14 @@ public class CustomerForm extends FormLayout {
     private Button delete = new Button("Delete");
     private Binder<CustomerDto> binder = new Binder<>();
     private MainView mainView;
-    private RoomForYouCustomerClient roomForYouCustomerClient;
+    private RoomForYouCustomerApiClient roomForYouCustomerApiClient;
     private CustomerDto customerDto = new CustomerDto();
     private com.mateusz.jakuszko.roomforyoufront.encoder.LongToStringEncoder LongToStringEncoder;
 
-    public CustomerForm(MainView mainView, RoomForYouCustomerClient roomForYouCustomerClient,
+    public CustomerForm(MainView mainView, RoomForYouCustomerApiClient roomForYouCustomerApiClient,
                         @Autowired LongToStringEncoder longToStringEncoder) {
         this.LongToStringEncoder = longToStringEncoder;
-        this.roomForYouCustomerClient = roomForYouCustomerClient;
+        this.roomForYouCustomerApiClient = roomForYouCustomerApiClient;
         HorizontalLayout buttons = new HorizontalLayout(save, delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         add(usernameField, passwordField, nameField, surnameField, emailField, roleField, customerIdField, buttons);
@@ -57,7 +57,7 @@ public class CustomerForm extends FormLayout {
         } catch (ValidationException e) {
             e.printStackTrace();
         }
-        roomForYouCustomerClient.postForCustomer(customerDto);
+        roomForYouCustomerApiClient.postForCustomer(customerDto);
         setCustomerDto(new CustomerDto());
         mainView.refreshCustomers();
         clear();
@@ -65,7 +65,7 @@ public class CustomerForm extends FormLayout {
 
     private void delete() {
         Long customerID = LongToStringEncoder.decode(customerIdField.getValue());
-        roomForYouCustomerClient.deleteCustomer(customerID);
+        roomForYouCustomerApiClient.deleteCustomer(customerID);
         mainView.refreshCustomers();
     }
 

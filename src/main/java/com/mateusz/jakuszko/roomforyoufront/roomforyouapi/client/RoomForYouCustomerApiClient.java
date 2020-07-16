@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class RoomForYouCustomerClient {
+public class RoomForYouCustomerApiClient {
     private final CustomerMapperFacade customerMapper;
     private final RoomForYouApiConfig roomForYouApiConfig;
     private final RestTemplate restTemplate;
