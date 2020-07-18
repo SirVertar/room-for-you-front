@@ -1,10 +1,12 @@
 package com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client;
 
 import com.mateusz.jakuszko.roomforyoufront.dto.CustomerDto;
+import com.mateusz.jakuszko.roomforyoufront.dto.ReservationDto;
+import com.mateusz.jakuszko.roomforyoufront.mapper.ReservationMapper;
 import com.mateusz.jakuszko.roomforyoufront.mapper.facade.CustomerMapperFacade;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.config.RoomForYouApiConfig;
-import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ApartmentResponse;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.CustomerResponse;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -12,29 +14,30 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
-public class RoomForYouCustomerApiClient {
-    private final CustomerMapperFacade customerMapper;
+public class RoomForYouReservationApiClient {
+    private final ReservationMapper reservationMapper;
     private final RoomForYouApiConfig roomForYouApiConfig;
     private final RestTemplate restTemplate;
 
-    public List<CustomerDto> getCustomersResponse() {
-        return customerMapper.mapToCustomerDtos(getCustomerResponseList(buildBasicUrl().toString()));
+    public List<ReservationDto> getReservationResponse() {
+        return reservationMapper.mapToReservationDtos(getReservationResponseList(buildBasicUrl().toString()));
     }
 
-    public CustomerDto postForCustomer(CustomerDto customerDto) {
-        return customerMapper.mapToCustomerDto(restTemplate.postForObject(buildBasicUrl().toString(),
-                customerDto, CustomerResponse.class));
+    public ReservationDto postForReservation(ReservationDto reservationDto) {
+        return reservationMapper.mapToReservationDto(Objects.requireNonNull(restTemplate.postForObject(buildBasicUrl().toString(),
+                reservationDto, ReservationResponse.class)));
     }
 
-    public void deleteCustomer(Long id) {
+    public void deleteReservation(Long id) {
         restTemplate.delete(buildBasicUrl().append(id).toString());
     }
 
-    private List<CustomerResponse> getCustomerResponseList(String url) {
-        CustomerResponse[] customers = restTemplate.getForObject(url, CustomerResponse[].class);
+    private List<ReservationResponse> getReservationResponseList(String url) {
+        ReservationResponse[] customers = restTemplate.getForObject(url, ReservationResponse[].class);
         if (customers != null) {
             return Arrays.asList(customers);
         }
@@ -44,6 +47,6 @@ public class RoomForYouCustomerApiClient {
     private StringBuilder buildBasicUrl() {
         return  new StringBuilder().append(roomForYouApiConfig.getUrl())
                 .append(roomForYouApiConfig.getVersion())
-                .append(roomForYouApiConfig.getCustomer());
+                .append(roomForYouApiConfig.getReservation());
     }
 }

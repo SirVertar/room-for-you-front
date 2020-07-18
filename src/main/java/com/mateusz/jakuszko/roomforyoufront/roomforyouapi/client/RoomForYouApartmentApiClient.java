@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -21,22 +22,16 @@ public class RoomForYouApartmentApiClient {
     private final RestTemplate restTemplate;
 
     public List<ApartmentDto> getApartmentsResponse() {
-        StringBuilder url = new StringBuilder();
-        url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment());
-        return apartmentMapper.mapToApartmentDtos(getApartmentResponseList(url.toString()));
+        return apartmentMapper.mapToApartmentDtos(getApartmentResponseList(buildBasicUrl().toString()));
     }
 
     public ApartmentDto postForApartment(ApartmentDto apartmentDto) {
-        StringBuilder url = new StringBuilder();
-        url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment());
-        return apartmentMapper.mapToApartmentDto(restTemplate.postForObject(url.toString(), apartmentDto, ApartmentResponse.class));
+        return apartmentMapper.mapToApartmentDto(Objects.requireNonNull(restTemplate
+                .postForObject(buildBasicUrl().toString(), apartmentDto, ApartmentResponse.class)));
     }
 
     public void deleteApartment(Long id) {
-        StringBuilder url = new StringBuilder();
-        url.append(roomForYouApiConfig.getUrl()).append(roomForYouApiConfig.getVersion()).append(roomForYouApiConfig.getApartment())
-                .append(id);
-        restTemplate.delete(url.toString());
+        restTemplate.delete(buildBasicUrl().append(id).toString());
     }
 
     public List<ApartmentResponse> getApartmentResponseList(String url) {
@@ -45,5 +40,11 @@ public class RoomForYouApartmentApiClient {
             return Arrays.asList(apartments);
         }
         return new ArrayList<>();
+    }
+
+    private StringBuilder buildBasicUrl() {
+        return  new StringBuilder().append(roomForYouApiConfig.getUrl())
+                .append(roomForYouApiConfig.getVersion())
+                .append(roomForYouApiConfig.getApartment());
     }
 }

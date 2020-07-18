@@ -1,7 +1,6 @@
 package com.mateusz.jakuszko.roomforyoufront.mapper;
 
 import com.google.gson.Gson;
-import com.mateusz.jakuszko.roomforyoufront.dto.ApartmentDto;
 import com.mateusz.jakuszko.roomforyoufront.dto.ReservationDto;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ReservationResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,7 @@ public class ReservationMapper {
                 .startDate(e.getStartDate())
                 .endDate(e.getEndDate())
                 .apartmentId(e.getApartmentId())
-                .userId(e.getUserId())
+                .customerId(e.getCustomerId())
                 .build())
                 .collect(Collectors.toList());
     }
@@ -33,7 +32,7 @@ public class ReservationMapper {
                 .startDate(reservationResponse.getStartDate())
                 .endDate(reservationResponse.getEndDate())
                 .apartmentId(reservationResponse.getApartmentId())
-                .userId(reservationResponse.getUserId())
+                .customerId(reservationResponse.getCustomerId())
                 .build();
     }
 

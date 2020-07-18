@@ -13,7 +13,7 @@ import java.time.LocalDate;
         "startDate",
         "endDate",
         "apartmentId",
-        "userId"
+        "customerId"
 })
 @Getter
 public class ReservationResponse {
@@ -25,6 +25,6 @@ public class ReservationResponse {
     public LocalDate endDate;
     @JsonProperty("apartmentId")
     public Long apartmentId;
-    @JsonProperty("userId")
-    public Long userId;
+    @JsonProperty("customerId")
+    public Long customerId;
 }
