@@ -11,11 +11,13 @@ import com.mateusz.jakuszko.roomforyoufront.form.ReservationForm;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouApartmentApiClient;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouCustomerApiClient;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouReservationApiClient;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client.RoomForYouWebSecurityApiClient;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.config.RoomForYouApiConfig;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.renderer.LocalDateRenderer;
 import com.vaadin.flow.router.Route;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,39 +28,47 @@ public class MainView extends VerticalLayout {
 
     public static final String DATE_REGEX = "^\\d{4}-\\d{2}-\\d{2}$";
     public static final String NUMBER_REGEX = "\\d+";
-    private final Button buttonLogIn = new Button("Login");
-    private final Button buttonRegister = new Button("Register");
-    private final Button buttonApartment = new Button("Apartment");
-    private final Button buttonReservation = new Button("Reservation");
-    private final Button buttonCustomer = new Button("Customer");
+    private final Anchor registerButton;
+    private final Anchor loginButton;
+    private final Button apartmentButton = new Button("Apartment");
+    private final Button reservationButton = new Button("Reservation");
+    private final Button customerButton = new Button("Customer");
     private final RoomForYouApartmentApiClient roomForYouApartmentApiClient;
     private final RoomForYouCustomerApiClient roomForYouCustomerApiClient;
     private final RoomForYouReservationApiClient roomForYouReservationApiClient;
+    private final RoomForYouWebSecurityApiClient roomForYouWebSecurityApiClient;
     private final Grid<ApartmentDto> apartmentGrid = new Grid<>(ApartmentDto.class);
     private final Grid<CustomerDto> customerGrid = new Grid<>(CustomerDto.class);
     private final Grid<ReservationDto> reservationGrid = new Grid<>(ReservationDto.class);
     private final LongToStringEncoder longToStringEncoder;
     private final LocalDateStringEncoder localDateStringEncoder;
+    private final RoomForYouApiConfig apiCofig;
 
     public MainView(@Autowired RoomForYouApartmentApiClient roomForYouApartmentApiClient,
                     @Autowired RoomForYouCustomerApiClient roomForYouCustomerApiClient,
                     @Autowired RoomForYouReservationApiClient roomForYouReservationApiClient,
                     @Autowired LongToStringEncoder longToStringEncoder,
-                    @Autowired LocalDateStringEncoder localDateStringEncoder) {
+                    @Autowired LocalDateStringEncoder localDateStringEncoder,
+                    @Autowired RoomForYouWebSecurityApiClient roomForYouWebSecurityApiClient,
+                    @Autowired RoomForYouApiConfig apiCofig) {
         this.longToStringEncoder = longToStringEncoder;
         this.roomForYouApartmentApiClient = roomForYouApartmentApiClient;
         this.roomForYouCustomerApiClient = roomForYouCustomerApiClient;
         this.roomForYouReservationApiClient = roomForYouReservationApiClient;
+        this.roomForYouWebSecurityApiClient = roomForYouWebSecurityApiClient;
+        this.apiCofig = apiCofig;
         this.localDateStringEncoder = localDateStringEncoder;
+        registerButton = new Anchor(buildRegistrationLink(), "Register");
+        loginButton = new Anchor(buildLoginLink(), "Login");
         addButtonsContent();
-        buttonApartment.addClickListener(event -> apartmentView());
-        buttonReservation.addClickListener(event -> reservationView());
-        buttonCustomer.addClickListener(event -> customersView());
+        apartmentButton.addClickListener(event -> apartmentView());
+        reservationButton.addClickListener(event -> reservationView());
+        customerButton.addClickListener(event -> customersView());
     }
 
     public void addButtonsContent() {
-        HorizontalLayout buttonsContent = new HorizontalLayout(buttonLogIn, buttonRegister, buttonApartment,
-                buttonReservation, buttonCustomer);
+        HorizontalLayout buttonsContent = new HorizontalLayout(loginButton, registerButton, apartmentButton,
+                reservationButton, customerButton);
         buttonsContent.setAlignItems(Alignment.CENTER);
         add(buttonsContent);
     }
@@ -103,6 +113,11 @@ public class MainView extends VerticalLayout {
         refreshReservations();
     }
 
+    public void register() {
+        removeAll();
+        roomForYouWebSecurityApiClient.register();
+    }
+
 
     public void refreshApartments() {
         apartmentGrid.setItems((roomForYouApartmentApiClient.getApartmentsResponse()));
@@ -114,5 +129,13 @@ public class MainView extends VerticalLayout {
 
     public void refreshReservations() {
         reservationGrid.setItems((roomForYouReservationApiClient.getReservationResponse()));
+    }
+
+    private String buildRegistrationLink() {
+        return apiCofig.getUrl() + apiCofig.getVersion() + apiCofig.getRegister();
+    }
+
+    private String buildLoginLink() {
+        return apiCofig.getUrl() + apiCofig.getLogin();
     }
 }

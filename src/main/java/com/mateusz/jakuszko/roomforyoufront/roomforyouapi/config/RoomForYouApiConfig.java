@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class RoomForYouApiConfig {
-    String url;
-    String version;
-    String apartment;
-    String reservation;
-    String customer;
+    private String url;
+    private String version;
+    private String apartment;
+    private String reservation;
+    private String customer;
+    private String register;
+    private String login;
 }
