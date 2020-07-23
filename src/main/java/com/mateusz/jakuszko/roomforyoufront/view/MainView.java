@@ -77,7 +77,7 @@ public class MainView extends VerticalLayout {
         removeAll();
         addButtonsContent();
         ApartmentForm apartmentForm = new ApartmentForm(this, roomForYouApartmentApiClient, longToStringEncoder);
-        apartmentGrid.setColumns("city", "street", "streetNumber", "apartmentNumber", "id", "customerId");
+        apartmentGrid.setColumns("id", "city", "street", "streetNumber", "apartmentNumber", "longitude", "latitude", "customerId");
         HorizontalLayout apartmentContent = new HorizontalLayout(apartmentGrid, apartmentForm);
         apartmentContent.setSizeFull();
         apartmentGrid.setSizeFull();

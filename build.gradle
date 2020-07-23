@@ -2,10 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.3.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'war'
 }
 
 group = 'com.mateusz.jakuszko'
-version = '0_0_5'
+version = '0_0_6'
 sourceCompatibility = '1.8'
 
 repositories {
@@ -32,7 +33,6 @@ dependencies {
     compile group: 'javax.inject', name: 'javax.inject', version: '1'
 
     compile('com.google.code.gson:gson:2.8.2')
-
 }
 
 dependencyManagement {
