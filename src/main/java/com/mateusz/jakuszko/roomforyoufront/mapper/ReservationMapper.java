@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class ReservationMapper {
+
     public List<ReservationDto> mapToReservationDtos(List<ReservationResponse> reservationResponses) {
         log.info("Map ReservationResponses to ReservationDtos");
         return reservationResponses.stream()

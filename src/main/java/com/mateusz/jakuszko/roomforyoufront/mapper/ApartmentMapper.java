@@ -1,8 +1,7 @@
 package com.mateusz.jakuszko.roomforyoufront.mapper;
 
-import com.google.gson.Gson;
-import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ApartmentResponse;
 import com.mateusz.jakuszko.roomforyoufront.dto.ApartmentDto;
+import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ApartmentResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +11,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class ApartmentMapper {
+
     public List<ApartmentDto> mapToApartmentDtos(List<ApartmentResponse> apartments) {
         log.info("Map ApartmentResponses to ApartmentDtos");
         return apartments.stream()
@@ -40,11 +40,5 @@ public class ApartmentMapper {
                 .apartmentNumber(apartment.getApartmentNumber())
                 .customerId(apartment.getCustomerId())
                 .reservationsIds(apartment.getReservationsIds()).build();
-    }
-
-    public String mapToJsonObject(ApartmentDto apartment) {
-        log.info("Map ApartmentDto to JsonObject");
-        Gson gson = new Gson();
-        return gson.toJson(apartment);
     }
 }

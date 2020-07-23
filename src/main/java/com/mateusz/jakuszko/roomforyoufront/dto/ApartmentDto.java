@@ -1,6 +1,9 @@
 package com.mateusz.jakuszko.roomforyoufront.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -19,4 +22,3 @@ public class ApartmentDto {
     private List<Long> reservationsIds;
     private Long customerId;
 }
-

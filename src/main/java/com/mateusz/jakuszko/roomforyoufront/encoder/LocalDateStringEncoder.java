@@ -12,7 +12,6 @@ public class LocalDateStringEncoder implements ModelEncoder<LocalDate, String> {
     public String encode(LocalDate date) {
         return Optional.ofNullable(date).map(Object::toString)
                 .orElse(null);
-//        return date.getYear() + "-" + date.getMonth() + "-" + date.getDayOfMonth();
     }
 
     @Override

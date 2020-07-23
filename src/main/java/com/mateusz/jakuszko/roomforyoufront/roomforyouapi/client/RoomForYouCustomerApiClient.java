@@ -3,7 +3,6 @@ package com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client;
 import com.mateusz.jakuszko.roomforyoufront.dto.CustomerDto;
 import com.mateusz.jakuszko.roomforyoufront.mapper.facade.CustomerMapperFacade;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.config.RoomForYouApiConfig;
-import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ApartmentResponse;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.CustomerResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -42,7 +41,7 @@ public class RoomForYouCustomerApiClient {
     }
 
     private StringBuilder buildBasicUrl() {
-        return  new StringBuilder().append(roomForYouApiConfig.getUrl())
+        return new StringBuilder().append(roomForYouApiConfig.getUrl())
                 .append(roomForYouApiConfig.getVersion())
                 .append(roomForYouApiConfig.getCustomer());
     }

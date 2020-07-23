@@ -55,7 +55,7 @@ public class ApartmentForm extends FormLayout {
     }
 
     private void save() {
-        if (customerIdField.getValue().length() != 0 && cityField.getValue().length() >=3 &&
+        if (customerIdField.getValue().length() != 0 && cityField.getValue().length() >= 3 &&
                 customerIdField.getValue().matches(MainView.NUMBER_REGEX)) {
             try {
                 binder.writeBean(apartmentDto);

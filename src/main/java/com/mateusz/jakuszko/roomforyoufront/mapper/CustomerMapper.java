@@ -14,7 +14,7 @@ import java.util.List;
 public class CustomerMapper {
 
     public CustomerDto mapToCustomerDto(CustomerResponse customerResponse, List<ApartmentDto> apartments,
-                                        List<ReservationDto> reservations){
+                                        List<ReservationDto> reservations) {
         log.info("Map CustomerResponse to CustomerDto");
         return CustomerDto.builder()
                 .id(customerResponse.getId())

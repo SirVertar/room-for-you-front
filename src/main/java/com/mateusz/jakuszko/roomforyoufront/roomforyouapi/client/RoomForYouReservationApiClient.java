@@ -1,11 +1,8 @@
 package com.mateusz.jakuszko.roomforyoufront.roomforyouapi.client;
 
-import com.mateusz.jakuszko.roomforyoufront.dto.CustomerDto;
 import com.mateusz.jakuszko.roomforyoufront.dto.ReservationDto;
 import com.mateusz.jakuszko.roomforyoufront.mapper.ReservationMapper;
-import com.mateusz.jakuszko.roomforyoufront.mapper.facade.CustomerMapperFacade;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.config.RoomForYouApiConfig;
-import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.CustomerResponse;
 import com.mateusz.jakuszko.roomforyoufront.roomforyouapi.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

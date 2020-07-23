@@ -19,5 +19,4 @@ public class LongToStringEncoder implements ModelEncoder<Long, String> {
         return Optional.ofNullable(presentationValue).map(Long::valueOf)
                 .orElse(null);
     }
-
 }

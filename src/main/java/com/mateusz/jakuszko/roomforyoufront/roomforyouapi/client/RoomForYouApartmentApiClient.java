@@ -43,7 +43,7 @@ public class RoomForYouApartmentApiClient {
     }
 
     private StringBuilder buildBasicUrl() {
-        return  new StringBuilder().append(roomForYouApiConfig.getUrl())
+        return new StringBuilder().append(roomForYouApiConfig.getUrl())
                 .append(roomForYouApiConfig.getVersion())
                 .append(roomForYouApiConfig.getApartment());
     }

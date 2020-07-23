@@ -113,12 +113,6 @@ public class MainView extends VerticalLayout {
         refreshReservations();
     }
 
-    public void register() {
-        removeAll();
-        roomForYouWebSecurityApiClient.register();
-    }
-
-
     public void refreshApartments() {
         apartmentGrid.setItems((roomForYouApartmentApiClient.getApartmentsResponse()));
     }
