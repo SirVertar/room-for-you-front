@@ -23,8 +23,8 @@ public class ApartmentForm extends FormLayout {
     private IntegerField apartmentNumberField = new IntegerField("Apartment Number");
     private TextField apartmentIdField = new TextField("Apartment id");
     private TextField customerIdField = new TextField("Customer id");
-    private Button saveButton = new Button("Save");
-    private Button deleteButton = new Button("Delete");
+    private Button saveButton = new Button("Create apartment");
+    private Button deleteButton = new Button("Delete apartment");
     private Label spaceLabel1 = new Label("");
     private Label spaceLabel2 = new Label("");
     private Binder<ApartmentDto> binder = new Binder<>();

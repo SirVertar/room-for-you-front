@@ -22,8 +22,8 @@ public class ReservationForm extends FormLayout {
     private TextField apartmentIdField = new TextField("Apartment Id");
     private TextField reservationIdField = new TextField("Reservation Id");
     private TextField customerIdField = new TextField("Customer Id");
-    private Button saveButton = new Button("Make Reservation");
-    private Button deleteButton = new Button("Delete Reservation");
+    private Button saveButton = new Button("Make reservation");
+    private Button deleteButton = new Button("Delete reservation");
     private Label spaceLabel1 = new Label("");
     private Binder<ReservationDto> binder = new Binder<>();
     private MainView mainView;
