@@ -22,7 +22,7 @@ import com.vaadin.flow.router.Route;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route
+@Route("")
 @Getter
 public class MainView extends VerticalLayout {
 
